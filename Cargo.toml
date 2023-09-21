@@ -2,7 +2,14 @@
 name = "dht20"
 version = "0.1.0"
 edition = "2021"
-
+authors = ["MnlPhlp <online@philipp-manuel.de>"]
+license = "MIT OR Apache-2.0"
+description = "platform agnostic driver for dht20 temperature and humidity sensor"
+homepage = "https://github.com/MnlPhlp/dht20"
+repository = "https://github.com/MnlPhlp/dht20"
+keywords = ["dht20", "sensor", "embedded", "arduino", "esp32"]
+categories = ["embedded","hardware-support","no-std"]
+readme = "README.md"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]

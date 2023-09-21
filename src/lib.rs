@@ -1,7 +1,10 @@
+#![no_std]
+
 use core::fmt;
 
 use embedded_hal::blocking::delay::DelayMs;
 use embedded_hal::blocking::i2c::{Read, Write, WriteRead};
+use log::info;
 
 pub struct Dht20<I2C, D> {
     i2c: I2C,
