@@ -2,14 +2,18 @@
 
 use core::fmt;
 
-use embedded_hal::blocking::delay::DelayMs;
-use embedded_hal::blocking::i2c::{Read, Write, WriteRead};
+use embedded_hal::delay::DelayNs;
+use embedded_hal::i2c::{I2c, SevenBitAddress};
+
 use log::info;
 
-pub struct Dht20<I2C, D> {
+pub struct Dht20<I2C, DELAY, E> where
+    I2C: I2c<SevenBitAddress, Error=E>,
+    DELAY: DelayNs,
+    E: fmt::Debug, {
     i2c: I2C,
     address: u8,
-    delay: D,
+    delay: DELAY,
 }
 
 #[derive(Debug, Clone)]
@@ -24,13 +28,12 @@ pub enum Error<E: fmt::Debug> {
     ReadToFast,
 }
 
-impl<I2C, E, D> Dht20<I2C, D>
-where
-    I2C: Read<Error = E> + Write<Error = E> + WriteRead<Error = E>,
+impl<I2C, DELAY, E> Dht20<I2C, DELAY, E> where
+    I2C: I2c<SevenBitAddress, Error=E>,
+    DELAY: DelayNs,
     E: fmt::Debug,
-    D: DelayMs<u16>,
 {
-    pub fn new(i2c: I2C, address: u8, delay: D) -> Self {
+    pub fn new(i2c: I2C, address: u8, delay: DELAY) -> Self {
         Self {
             i2c,
             address,
